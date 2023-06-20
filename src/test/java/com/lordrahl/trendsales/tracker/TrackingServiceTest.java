@@ -43,10 +43,6 @@ public class TrackingServiceTest {
         assertEquals(2 + 2, 4);
     }
 
-    public void loadUndeliveredPackages() {
-
-    }
-
     @Test
     public void testCheckRemoteStatus() throws IOException {
         when(shippingService.fetchStatus("1234")).thenReturn(PackageStatus.IN_TRANSIT);
