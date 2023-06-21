@@ -6,8 +6,6 @@ import com.lordrahl.trendsales.shipments.Shipment;
 import java.util.List;
 
 public interface TrackingService {
-    void start() throws Exception;
-
     /**
      * Checks for shipments that their status have changed.
      * <p>

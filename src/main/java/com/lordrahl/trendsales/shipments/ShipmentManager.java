@@ -19,6 +19,7 @@ public class ShipmentManager implements ShipmentService {
 
     @Override
     public List<Shipment> undeliveredPackages() {
+        System.out.println("undelivered called");
         return this.shipmentRepository.undelivered();
     }
 

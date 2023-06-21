@@ -26,11 +26,6 @@ public class TrackingManager implements TrackingService {
         this.trackingRepository = trackingRepository;
     }
 
-    @Override
-    public void start() throws Exception {
-        System.out.println("running");
-    }
-
     /**
      * Fetch the external status.
      * Compare the status, and add if it changes.
