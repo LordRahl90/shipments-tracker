@@ -1,14 +1,10 @@
-## Trendsales Assignment
+## Shipment Tracker Assignment
 
-Shipments => changes the state of
-// Define an end state for our process. (Assumption here is that it is "PICKED_UP")
-// keep a record in the pivot table. => could be a queue
-// periodically load all shipment records that are yet to be picked up.
-// send it to the polling service to check for update
-// compare the update response, if there is a change
-// update the status in the shipments table
-// poll pivot table for internal service updates
+## Setup
 
+* Clone repository
+* Update `resources/application.properties` to preferred database name
+* Run application
 
 ## Process
 

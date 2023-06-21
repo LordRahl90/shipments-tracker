@@ -39,12 +39,8 @@ public class TrackingServiceTest {
     private TrackingRepository trackingRepository;
 
     @Test
-    public void testCheckStatus() {
-        assertEquals(2 + 2, 4);
-    }
-
-    @Test
     public void testCheckRemoteStatus() throws IOException {
+        reset(trackingRepository);
         when(shippingService.fetchStatus("1234")).thenReturn(PackageStatus.IN_TRANSIT);
         Shipment shipment = new Shipment(1L, "1234", PackageStatus.INITIATED, new Date());
         TrackingService trackingManager = new TrackingManager(shipmentService, shippingService, internalActionService, trackingRepository);
@@ -59,6 +55,7 @@ public class TrackingServiceTest {
 
     @Test
     public void testCheckRemoteStatus_MultipleShipments() throws IOException {
+        reset(trackingRepository);
         when(shippingService.fetchStatus("1234")).thenReturn(PackageStatus.IN_TRANSIT);
         Shipment shipment = new Shipment(1L, "1234", PackageStatus.INITIATED, new Date());
         Shipment shipment1 = new Shipment(2L, "12345", PackageStatus.INITIATED, new Date());
@@ -75,6 +72,7 @@ public class TrackingServiceTest {
 
     @Test
     public void testCheckRemoteStatus_MultipleShipmentValidResponse() throws IOException {
+        reset(trackingRepository);
         when(shippingService.fetchStatus(anyString()))
                 .thenReturn(PackageStatus.IN_TRANSIT, PackageStatus.INITIATED);
         Shipment shipment = new Shipment(1L, "1234", PackageStatus.INITIATED, new Date());
@@ -93,6 +91,7 @@ public class TrackingServiceTest {
 
     @Test
     public void testProcess() throws Exception {
+        reset(trackingRepository);
         List<Tracking> trackings = List.of(
                 new Tracking(1L, "1234", PackageStatus.INITIATED, new Date()),
                 new Tracking(2L, "1235", PackageStatus.INITIATED, new Date()),
@@ -112,11 +111,11 @@ public class TrackingServiceTest {
         InOrder order = inOrder(internalActionService, trackingRepository);
         order.verify(internalActionService, times(3)).perform(any(), any());
         order.verify(trackingRepository, times(3)).delete(any());
-
     }
 
     @Test
     public void testProcess_WithFalseResponse() throws Exception {
+        reset(trackingRepository);
         List<Tracking> trackings = List.of(
                 new Tracking(1L, "1234", PackageStatus.INITIATED, new Date()),
                 new Tracking(2L, "1235", PackageStatus.INITIATED, new Date()),
